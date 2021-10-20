@@ -1,0 +1,49 @@
+form {
+    
+    position: relative;
+    width: 500px;
+    margin: auto;
+    
+}
+
+.title-input {
+    border: none;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-width: 0px;
+    /* display: block; */
+    font-family: "Montserrat", sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    outline: none;
+    height: 35px;
+    width: 100%;
+
+}
+
+.content-input {
+    border: none;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-width: 0px;
+    /* display: block; */
+    font-family: "Montserrat", sans-serif;
+    font-size: 25px;
+    outline: none;
+    height: 100px;
+    resize: none;
+    width: 100%;;
+}
+
+.add-button {
+    border: white;
+    color: white;
+    cursor: pointer;
+    background-color: #f5ba13;
+    border-radius: 50%;
+    padding: 0.5rem;
+    position: absolute;
+    right: 20px;
+    bottom: -10px;
+    
+}
