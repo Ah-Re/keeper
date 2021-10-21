@@ -1,0 +1,57 @@
+.signup {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    height: 300px;
+    margin-left: -200px;
+    margin-top: -150px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    text-align: center;
+    width: 400px;
+    z-index: 1000;
+}
+
+.signup i {
+    color: gray;
+    cursor: pointer;
+    position: absolute;
+   right: 1.5rem;
+   top: 0.5rem;
+}
+
+.signup button {
+    background-color: gray;
+    color: white;
+    cursor: pointer;
+    display: block;
+    font-family: "Montserrat", sans-serif;
+    padding: 0.5rem;
+    width: 80%;
+}
+
+.signup button:focus {
+    background-color: white;
+    color: gray;
+}
+
+.signup p {
+    border-bottom: 1px solid #000; 
+    line-height: 0.1em;
+    margin: auto;
+    width: 80%;
+}
+
+.signup span {
+    background: #fff;
+    padding:0 10px;
+
+}
+
+.google-button {
+    margin: 5rem auto 2rem;
+}
+.demo-button {
+    margin: 2rem auto;
+}
