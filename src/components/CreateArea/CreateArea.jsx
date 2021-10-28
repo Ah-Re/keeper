@@ -31,7 +31,15 @@ function CreateArea(props) {
             <textarea className="content-input" onChange={handleChange} placeholder="Content" name="content"></textarea>
             <button className="add-button" onClick={(e) => {
                 e.preventDefault();
-                props.addNote(note);
+                if (props.user) {
+                    console.log(props.user);
+                    props.addNote(note);
+                } else {
+                    console.log(props.user);
+                    props.changeModal();
+                }
+                
+                
             }}>Add</button>
         </form>
     )

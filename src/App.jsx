@@ -5,7 +5,6 @@ import Footer from "./components/Footer";
 import Note from "./components/Note/Note";
 import CreateArea from "./components/CreateArea/CreateArea";
 import Signup from "./Signup/Signup";
-import Login from "./components/Login";
 import firebase from "./firebase";
 
 
@@ -19,14 +18,18 @@ function App(props) {
   
   const [notes, setNotes] = useState([]);
   const [user, setUser] = useState(null);
+  const [modal, setModal] = useState(false);
+
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
       setUser(user);
+      
     })
-  }, []);
+  }, [])
+  
 
-  console.log(user);
+  
   
 function addNote(note) {
   setNotes(prevValue => {
@@ -41,6 +44,14 @@ function deleteNote(noteId) {
     })
   })
 }
+
+function changeModal() {
+  setModal(!modal);
+}
+
+function setDemoUser() {
+  setUser("demo");
+}
   
 
 
@@ -52,8 +63,14 @@ function deleteNote(noteId) {
    
     <Header />
     {/* <Login /> */}
-    <Signup />
-    <CreateArea addNote={addNote}/>
+    <Signup modal={modal}
+            changeModal={changeModal}
+            setDemoUser={setDemoUser}
+    />
+    <CreateArea addNote={addNote}
+                changeModal={changeModal}
+                user={user}
+    />
    
     {notes.map((note, index) => {
       return <Note  deleteNote={deleteNote} key={index} id={index} title={note.title} content={note.content} />
