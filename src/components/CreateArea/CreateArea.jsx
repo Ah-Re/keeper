@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import "./CreateArea.css";
+import { auth, firestore } from "../../firebase";
+import firebase from "firebase/compat/app";
+
+
 
 function CreateArea(props) {
 
@@ -7,6 +11,9 @@ function CreateArea(props) {
         title: "",
         content: ""
     })
+
+    const notesRef = firestore.collection(`users/${auth.currentUser.uid}/notes`);
+
 
     function handleChange(e) {
         
@@ -25,6 +32,14 @@ function CreateArea(props) {
         
     }
 
+    function addNote(note) {
+  notesRef.add({
+    title: note.title,
+    content: note.content,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+})
+}
+
     return (
         <form>
             <input className="title-input" onChange={handleChange} name="title" placeholder="Title" type="text"></input>
@@ -33,7 +48,7 @@ function CreateArea(props) {
                 e.preventDefault();
                 if (props.user) {
                     console.log(props.user);
-                    props.addNote(note);
+                    addNote(note);
                 } else {
                     console.log(props.user);
                     props.changeModal();

@@ -2,96 +2,72 @@ import React, { useState, useEffect } from "react";
 import './App.css';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Note from "./components/Note/Note";
+import Notes from "./components/Note/Notes";
 import CreateArea from "./components/CreateArea/CreateArea";
 import Signup from "./Signup/Signup";
-import firebase from "./firebase";
-
-
-
-
-
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import firebase from "firebase/compat/app";
+import { auth, firestore } from "./firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 function App(props) {
 
-  
-  
-  const [notes, setNotes] = useState([]);
-  const [user, setUser] = useState(null);
+  console.log(auth.currentUser);
+  const [note, setNote] = useState("");
   const [modal, setModal] = useState(false);
-
-
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged(user => {
-      setUser(user);
-      
-    })
-  }, [])
   
 
-  
-  
-function addNote(note) {
-  setNotes(prevValue => {
-   return [...prevValue, note]
-  })
+  const signInWithGoogle = () => {
+    auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  }
+
+  const signOut = () => {
+    auth.signOut();
 }
 
-function deleteNote(noteId) {
-  setNotes(prevValue => {
-    return prevValue.filter((note, index) => {
-      return index !== noteId;
-    })
-  })
-}
+  const [user] = useAuthState(auth);
+  
+// function addNote(note) {
+//   notesRef.add({
+//     title: note,
+//     content: false,
+//     createdAt: firebase.firestore.FieldValue.serverTimestamp()
+// })
+// }
+
+// Same function, but filter through notes array instead of the notes state.
+// function deleteNote(id) {
+//   notesRef.doc(id).delete();
+// }
 
 function changeModal() {
   setModal(!modal);
 }
 
-function setDemoUser() {
-  setUser("demo");
-}
-  
-
-
-
-
   return (
     <div>
     
-   
-    <Header />
-    {/* <Login /> */}
-    <Signup modal={modal}
-            changeModal={changeModal}
-            setDemoUser={setDemoUser}
+    <Header signOut={signOut}
+            user={user}
     />
-    <CreateArea addNote={addNote}
+
+    {user ? 
+      <> 
+      <CreateArea 
                 changeModal={changeModal}
                 user={user}
     />
-   
-    {notes.map((note, index) => {
-      return <Note  deleteNote={deleteNote} key={index} id={index} title={note.title} content={note.content} />
-    })} 
+
+      <Notes />
+      </>
+    : 
+    <Signup modal={modal}
+            changeModal={changeModal}
+            signInWithGoogle={signInWithGoogle}
+    />
     
+    }
   
-    {/* <Header />
-    <CreateArea addNote={addNote}/>
-   
-    {notes.map((note, index) => {
-      return <Note  deleteNote={deleteNote} key={index} id={index} title={note.title} content={note.content} />
-    })} 
-    
-    <Signup /> */}
-
-   
-    
-
-    
-    
-    
     
     <Footer />
     </div>

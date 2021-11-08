@@ -1,0 +1,16 @@
+header p {
+    color: white;
+    display: inline;
+    position: relative;
+    left: 80%;
+}
+
+header p:hover {
+    cursor: pointer;
+}
+
+header h1 {
+    display: inline-block;
+    margin-bottom: 0;
+}
+
