@@ -8,7 +8,12 @@ const Note = (props) => {
             <p>{props.content}</p>
             <button onClick={(e) => {
               e.preventDefault();
-              props.deleteNote(props.id);
+              if (props.user) {
+                props.deleteNote(props.id);
+              } else {
+                  props.deleteDemoNotes(props.demoNoteId);
+              }
+              
             }}>DELETE</button> 
             </div>
     )

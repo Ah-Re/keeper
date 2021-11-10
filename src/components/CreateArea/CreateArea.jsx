@@ -12,7 +12,7 @@ function CreateArea(props) {
         content: ""
     })
 
-    const notesRef = firestore.collection(`users/${auth.currentUser.uid}/notes`);
+    const notesRef = props.user ? firestore.collection(`users/${auth.currentUser.uid}/notes`) : null;
 
 
     function handleChange(e) {
@@ -49,9 +49,8 @@ function CreateArea(props) {
                 if (props.user) {
                     console.log(props.user);
                     addNote(note);
-                } else {
-                    console.log(props.user);
-                    props.changeModal();
+                } else if (props.demoUser){
+                    props.addDemoNote(note);
                 }
                 
                 

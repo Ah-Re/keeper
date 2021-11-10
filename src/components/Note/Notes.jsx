@@ -5,8 +5,11 @@ import Note from "./Note";
 
 
 function Notes(props) {
-    const notesRef = firestore.collection(`users/${auth.currentUser.uid}/notes`);
+
+    const notesRef = props.user ? firestore.collection(`users/${auth.currentUser.uid}/notes`) : null;
     const [notes] = useCollectionData(notesRef, { idField: "id"});
+
+    const notesArray = props.user ? notes : props.demoNotes;
 
     function deleteNote(id) {
   notesRef.doc(id).delete();
@@ -17,14 +20,18 @@ function Notes(props) {
     return (
         <>
 
-        {notes && notes.map((note) => {
+         
+        {notesArray && notesArray.map((note, index) => {
             return (
-            <Note title={note.title} content={note.content} id={note.id} deleteNote={deleteNote}/>
+            <Note title={note.title} content={note.content} id={note.id} demoNoteId={index} deleteDemoNotes={props.deleteDemoNotes} user={props.user} deleteNote={deleteNote}/>
             
             
             
 
-            )})}
+            )})} 
+
+            
+            
             
         </>
     );

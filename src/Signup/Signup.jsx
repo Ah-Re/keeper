@@ -20,8 +20,7 @@ function Signup(props) {
         }} className="google-button">Sign Up with Google</button>
         <p><span>OR</span></p>
         <button onClick={() => {
-            props.setDemoUser();
-            props.changeModal();
+            props.setDemoUser("demo");
         }} className="demo-button">Demo</button>
         </div>
         

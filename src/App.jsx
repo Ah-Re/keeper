@@ -12,10 +12,11 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 function App(props) {
 
-  console.log(auth.currentUser);
+  
   const [note, setNote] = useState("");
   const [modal, setModal] = useState(false);
-  
+  const [demoUser, setDemoUser] = useState("");
+  const [demoNotes, setDemoNotes] = useState([]);
 
   const signInWithGoogle = () => {
     auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
@@ -27,18 +28,29 @@ function App(props) {
 
   const [user] = useAuthState(auth);
   
-// function addNote(note) {
-//   notesRef.add({
-//     title: note,
-//     content: false,
-//     createdAt: firebase.firestore.FieldValue.serverTimestamp()
-// })
-// }
+  function addDemoNote(note) {
+    setDemoNotes((prevValue) => {
+      return [...prevValue, note]
+    })
 
-// Same function, but filter through notes array instead of the notes state.
-// function deleteNote(id) {
-//   notesRef.doc(id).delete();
-// }
+    console.log(demoNotes);
+
+  }
+
+  function resetDemoUser() {
+    setDemoUser("");
+    setDemoNotes([]);
+  }
+
+  function deleteDemoNotes(noteId) {
+    setDemoNotes(prevNotes => {
+      return prevNotes.filter((noteItem, index) => {
+        return index !== noteId;
+      })
+    })
+  }
+
+  
 
 function changeModal() {
   setModal(!modal);
@@ -49,24 +61,35 @@ function changeModal() {
     
     <Header signOut={signOut}
             user={user}
+            demoUser={demoUser}
+            resetDemoUser={resetDemoUser}
     />
 
-    {user ? 
+    {user || demoUser ?
       <> 
       <CreateArea 
                 changeModal={changeModal}
                 user={user}
+                demoUser={demoUser}
+                addDemoNote={addDemoNote}
     />
 
-      <Notes />
+      <Notes demoUser={demoUser}
+              demoNotes={demoNotes}
+              user={user}
+              deleteDemoNotes={deleteDemoNotes}
+      />
       </>
     : 
     <Signup modal={modal}
             changeModal={changeModal}
             signInWithGoogle={signInWithGoogle}
+            setDemoUser={setDemoUser}
     />
     
     }
+
+    
   
     
     <Footer />
