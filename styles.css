@@ -1,0 +1,31 @@
+html, body {
+    background-color: #eee;
+    font-family: "Montserrat", sans-serif;
+    margin: 0;
+}
+
+header {
+    background-color: #f5ba13;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+    
+}
+
+header h1 {
+    color: white;
+    font-family: "McLaren", cursive;
+    font-weight: 200;
+    margin-top: 0;
+    padding: 1rem;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+}
+
+footer p {
+    color: #ccc;
+}
+
